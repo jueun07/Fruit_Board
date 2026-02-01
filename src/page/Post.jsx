@@ -5,8 +5,10 @@ import PostDetail from "./PostDetail";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Post.css";
+import { API_BASE } from "../apiBase";
 
 function Post() {
+ const API_BASE = import.meta.env.VITE_API_BASE;
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -14,7 +16,7 @@ function Post() {
   const [content, setContent] = useState("");
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
-  const navigater = useNavigate();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
@@ -62,26 +64,34 @@ function Post() {
     navigate("/");
   };
 
-
-
-  // ✅ 관리자 글(is_pinned === 1)을 항상 맨 앞에
   const sortedPosts = [...posts].sort((a, b) => {
     return (b.is_pinned ?? 0) - (a.is_pinned ?? 0);
   });
 
   // ✅ 게시글 목록 불러오기 (포트 수정)
   useEffect(() => {
-    fetch("http://localhost:3001/posts")
+    if (!import.meta.env.DEV) {
+      setPosts([]);
+      return;
+    }
+
+    fetch(`${API_BASE}/posts`)
       .then((res) => res.json())
       .then(setPosts)
       .catch(console.error);
   }, []);
 
+
   const handleSubmit = async () => {
+    if (!import.meta.env.DEV) {
+      alert("배포(GitHub Pages)에서는 게시판 기능이 동작하지 않습니다. 로컬에서만 가능합니다.");
+      return;
+    }
+
     if (!title.trim() || !content.trim()) return;
 
     try {
-      const res = await fetch("http://localhost:3001/posts", {
+      const res = await fetch(`${API_BASE}/posts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -100,7 +110,7 @@ function Post() {
 
       alert("게시글이 등록 되었습니다!");
 
-      const listRes = await fetch("http://localhost:3001/posts");
+      const listRes = await fetch(`${API_BASE}/posts`);
       const data = await listRes.json();
       setPosts(data);
 
@@ -120,13 +130,13 @@ function Post() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/src/assets/과일농과로고.png" alt="로고" />
+            <img src={logo} alt="로고" />
           </Link>
 
           <div className="header-right">
             <nav className="nav">
               <Link to="/Shopping">Shop</Link>
-              <a id="jang" href="/post">게시판</a>
+              <Link to="/post">게시판</Link>
               <Link to="/Profile">인사말</Link>
               <Link to="/fruit">시세가</Link>
             </nav>
@@ -151,7 +161,7 @@ function Post() {
                         className="dropdown-item"
                         onClick={() => {
                           closeDropdown();
-                          navigater("/mypage");
+                          navigate("/mypage");
                         }}
                       >
                         마이페이지
@@ -271,9 +281,12 @@ function Post() {
               setPosts(posts.filter((p) => p.id !== id));
             }}
             onUpdate={() => {
-              fetch("http://localhost:3001/posts")
+              if (!import.meta.env.DEV) return;
+
+              fetch(`${API_BASE}/posts`)
                 .then((res) => res.json())
-                .then(setPosts);
+                .then(setPosts)
+                .catch(console.error);
             }}
           />
         )}

@@ -52,7 +52,7 @@ function Login() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/src/assets/과일농과로고.png" alt="로고" />
+            <img src="/과일농과로고.png" alt="로고" />
           </Link>
 
           <div className="header-right">

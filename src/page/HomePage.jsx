@@ -9,12 +9,10 @@ function HomePage() {
   const { user, logout } = useAuth();
   const navigater = useNavigate();
 
-  // ✅ 드롭다운 상태
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const dropdownRef = useRef(null);
 
-  // ✅ 바깥 클릭하면 드롭다운 닫기 + ESC로 닫기
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -41,7 +39,7 @@ function HomePage() {
     setTimeout(() => {
       setOpen(false);
       setClosing(false);
-    }, 160); // CSS transition 시간과 맞추기
+    }, 160);
   };
 
   const toggleDropdown = () => {
@@ -64,7 +62,7 @@ function HomePage() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/src/assets/과일농과로고.png" alt="로고" />
+            <img src="/과일농과로고.png" alt="로고" />
           </Link>
 
           <div className="header-right">

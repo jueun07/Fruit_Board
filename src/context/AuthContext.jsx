@@ -7,7 +7,6 @@ const STORAGE_KEY = "fruit_user";
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // ✅ 앱이 처음 켜질 때(새로고침 포함) localStorage에서 로그인 복원
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {

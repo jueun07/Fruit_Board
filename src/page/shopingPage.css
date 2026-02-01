@@ -15,7 +15,6 @@
   border-radius: 10px;
 }
 
-/* 상품 그리드 */
 .product-grid {
   flex: 4;
   display: grid;
@@ -23,9 +22,7 @@
   gap: 20px;
   padding-top: 1px;
   grid-auto-rows: 1fr;
-  /* 🔥 핵심 */
   align-items: start;
-  /* 늘어나지 않게 */
 }
 
 .product-card {
@@ -54,7 +51,6 @@
   color: #2ecc71;
 }
 
-/* 헤더 */
 .header {
   display: flex;
   justify-content: space-between;
@@ -109,7 +105,6 @@
   color: #000000;
 }
 
-/* 사이드바 공통 */
 .sidebar h3 {
   font-size: 16px;
   font-weight: 700;
@@ -132,7 +127,6 @@
   width: 100%;
 }
 
-/* 필터 그룹 */
 .filter-group {
   margin-top: 20px;
   padding-top: 16px;
@@ -145,7 +139,6 @@
   margin-top: 0;
 }
 
-/* ========================= 카테고리 FIX ========================= */
 .filter-group.category ul {
   display: flex;
   flex-direction: column;
@@ -169,7 +162,6 @@
   text-align: left;
 }
 
-/* ========================= 가격대 FIX ========================= */
 .filter-group.price ul {
   display: flex;
   flex-direction: column;
@@ -196,7 +188,6 @@
   text-align: left;
 }
 
-/* 버튼 */
 .reset-filter {
   width: 100%;
   margin-top: 20px;
@@ -214,9 +205,7 @@
 
 .reset-filter:focus {
   outline: none;
-  /* 기본 파란 테두리 제거 */
   border-color: #ffffff;
-  /* 눌러도 깔끔 */
 }
 
 .add-cart {
@@ -240,7 +229,6 @@
   color: #ffffff;
 }
 
-/* 페이지 레이아웃 */
 .page-wrap {
   min-height: 100vh;
   display: flex;
@@ -269,7 +257,6 @@
   white-space: nowrap;
 }
 
-/* 가격대 */
 .filter-group.price li label {
   display: grid !important;
   grid-template-columns: 16px 1fr;
@@ -300,34 +287,28 @@
   background: #fff;
 }
 
-/* 체크됐을 때 배경 */
 .filter-group input[type="checkbox"]:checked {
   background: #2ecc71;
 }
 
-/* 기본 체크박스 사용 */
 .filter-group input[type="checkbox"] {
   margin: 0;
 }
 
-/* 체크되면 텍스트만 초록 */
 .filter-group input[type="checkbox"]:checked+span {
   color: #2ecc71;
   font-weight: 600;
 }
 
-/* 줄 배경 강조 */
 .filter-group label:has(input[type="checkbox"]:checked) {
   background: rgba(46, 204, 113, 0.1);
 }
 
-/* 선택된 항목 텍스트 강조 */
 .filter-group input[type="checkbox"]:checked+span {
   color: #2ecc71;
   font-weight: 600;
 }
 
-/* 선택된 줄 전체 살짝 강조 */
 .filter-group label {
   padding: 4px 6px;
   border-radius: 6px;
@@ -342,12 +323,10 @@
   background: rgba(46, 204, 113, 0.1);
 }
 
-/* 카테고리 */
 .filter-group.category li label {
   column-gap: 14px !important;
 }
 
-/* 가격대 */
 .filter-group.price li label {
   column-gap: 14px !important;
 }
@@ -357,7 +336,6 @@
   font-weight: 400;
 }
 
-/* 가격대 선택 시 텍스트: 초록 */
 .filter-group.price input[type="checkbox"]:checked+span {
   color: #2ecc71;
   font-weight: 600;
@@ -365,20 +343,16 @@
 
 .filter-group li label {
   min-height: 40px;
-  /* 🔥 핵심 */
   box-sizing: border-box;
-  /* padding 포함해서 높이 계산 */
 }
 
 .sidebar {
   align-self: flex-start;
-  /* 🔥 flex 영향에서 분리 */
 }
 
 .fruit-filter {
   display: flex;
   flex-wrap: wrap;
-  /* 줄 바꿈 허용 */
   gap: 8px;
   margin-bottom: 16px;
   max-width: 100%;

@@ -3,7 +3,7 @@ const cors = require("cors");
 const db = require("./db");
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 /* ---------------- 게시글 ---------------- */
@@ -135,6 +135,7 @@ app.get("/api/test", (req, res) => {
   res.json({ message: "프론트랑 연결 성공!" });
 });
 
-app.listen(3001, () => {
-  console.log("🚀 서버 실행 중: http://localhost:3001");
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`🚀 서버 실행 중: http://localhost:${PORT}`);
 });
