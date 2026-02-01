@@ -1,0 +1,32 @@
+/* src/styles/global.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.inner {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.page-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+}
+
+/* src/styles/global.css */
+footer.footer {
+  background: #f1f1f1;
+  color: #4a4b48;
+  text-align: center;
+  padding: 20px;
+  margin-top: 0;
+}

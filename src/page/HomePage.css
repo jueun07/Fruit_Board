@@ -1,0 +1,204 @@
+.header {
+  background-color: #9bd673; /* 기존 어두운 헤더 유지 */
+  height: 80px;
+  padding: 20px 0;
+  position: fixed; /* 헤더를 상단에 고정하고 싶다면 */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 로고 왼쪽, 나머지 오른쪽 */
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2f8f2f;
+}
+
+.logo img {
+  height: 117px;
+  width: auto;
+  align-items: center;
+  gap: 40px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+}
+
+.nav a.active {
+  color: #ff0000; /* 현재 페이지 강조 */
+  font-weight: bold;
+}
+
+.auth a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+/* 메인 콘텐츠 - 화면 전체를 덮고 정중앙 배치 */
+.main-content {
+  height: 100vh; /* 화면 높이 전체 사용 */
+  width: 205vh;
+  display: flex;
+  justify-content: center;  /* 수평 중앙 */
+  align-items: center;      /* 수직 중앙 */
+  background:  
+              url('/src/assets/메인2.png'); /* 원하는 과일 배경 이미지 넣기 */
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 80px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8); /* 글자 그림자로 입체감 */
+}
+
+.sub-title {
+  font-size: 24px; /* ❗ 기존 h2 크기 유지 */
+  color: white;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* 헤더가 fixed일 경우 body 스크롤 밀림 방지 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif; /* 한글 폰트 예시 */
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* ✅ 회원 이름만 색 바꾸기 (우선순위 높게) */
+.header .auth .user-name {
+  color: #2f8f2f !important;
+}
+
+/* ===== 유저 드롭다운 ===== */
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  /* ✅ 상단바 메뉴랑 통일 */
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ✅ 회원 이름만 색 다르게 */
+.user-name {
+  color: #ff9800;
+}
+
+.user-suffix {
+  color: #ffffff;
+}
+
+.user-arrow {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-left: 2px;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 150px;
+  background: #fffffd;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.dropdown-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #222;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background: #ebeeea;
+}
+
+.dropdown-item.danger {
+  color: #d12;
+}
+
+.user-trigger {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 19px;
+  padding: 6px 12px;
+
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 16px;
+  font-weight: 600;
+  color: #ff9800;
+}
+
+/* 개별 색 지정 제거 */
+.user-name,
+.user-suffix,
+.user-arrow {
+  color: inherit; 
+}
+.cta-button:focus {
+  outline: none;
+  border-color: #ffffff;
+}

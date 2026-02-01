@@ -1,0 +1,21 @@
+.chart-page {
+  margin-top: 0;          /* 🔥 부모랑 붙이기 */
+}
+
+.chart-page h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.chart-desc {
+  margin-top: 4px;        /* 🔥 과일 시세와의 거리 */
+  margin-bottom: 12px;    /* 그래프와의 간격 */
+  font-size: 14px;
+  color: #666;
+}
+
+.chart-box {
+  background: #f9fff9;
+  padding: 30px;
+  border-radius: 12px;
+}

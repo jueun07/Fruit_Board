@@ -1,0 +1,136 @@
+.header .header-inner {
+  display: flex;
+  align-items: center;
+}
+
+.header .header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header .nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500; /* bold 느낌 제거 */
+}
+
+.header .nav a.active {
+  font-weight: 500;
+}
+
+/* active 색상만 강조 (필요하면 변경) */
+.header .nav a.active {
+  color: #ff0000;
+}
+
+/* 3) auth 영역(로그인/회원가입/장바구니) 링크 기본 */
+.header .auth a,
+.header .auth .cart-link {
+  margin-left: 12px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;   /* ✅ 전체 페이지 장바구니 글씨 16px 통일 */
+  font-weight: 500;
+}
+
+/* 4) 장바구니 카운트 */
+.header .cart-count {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header .user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+/* ✅ 유저버튼(이름/님/화살표) */
+.header .user-trigger {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.65); /* ✅ 1px 얇은 테두리 */
+  border-radius: 999px;
+  padding: 6px 12px;
+
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 16px;    /* 메뉴와 동일 */
+  font-weight: 500;   /* 두께 통일 */
+  color: #ff9800;     /* ✅ 이름/님/화살표 전체 색 */
+}
+
+/* ✅ 안쪽 span들은 무조건 같은 색(덮어쓰기 방지) */
+.header .user-trigger span {
+  color: inherit !important;
+}
+
+/* 포커스/호버 깔끔하게 */
+.header .user-trigger:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.header .user-trigger:hover {
+  border-color: #ff9800;
+}
+
+/* 드롭다운 박스 */
+.header .dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 130px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.header .dropdown-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  text-align: left;
+  padding: 10px 12px;
+  margin: 0;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #222;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.header .dropdown-item:hover {
+  background: #f4f4f4;
+}
+
+.header .dropdown-item.danger {
+  color: #ff9800;
+}
+
+.user-trigger:focus {
+  outline: none;                 /* 기본 파란 테두리 제거 */
+  border-color: #ffffff;         /* 눌러도 깔끔 */
+}
+
+.header .dropdown {
+  transform-origin: top right;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.header .dropdown.closing {
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+}

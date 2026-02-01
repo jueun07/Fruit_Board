@@ -1,0 +1,126 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.checkout {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: white;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;   /* 세로 중앙 정렬 */
+  gap: 12px;             /* 글자 ↔ 라디오 버튼 간격 */
+  margin: 12px 0;
+  white-space: nowrap;   /* ⭐ 줄바꿈 방지 핵심 */
+}
+
+.payment-option span {
+  min-width: 80px;       /* 글자 영역 확보 */
+  display: inline-block;
+}
+
+.summary button {
+  width: 100%;
+  padding: 14px;
+  background-color: #ff7a00;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#jang {
+  color: red;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+}
+
+.checkout {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: white;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;  
+  gap: 12px;         
+  margin: 12px 0;
+  white-space: nowrap; 
+}
+
+.payment-option span {
+  min-width: 80px;
+  display: inline-block;
+}
+
+.summary button {
+  width: 100%;
+  padding: 14px;
+  background-color: #ff7a00;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#jang {
+  color: red;
+}

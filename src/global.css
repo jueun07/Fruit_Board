@@ -1,0 +1,16 @@
+/* 강제 초기화 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", Arial, sans-serif;
+  background-color: #fff;
+}
+
+  /* background: #000;
+  color: #aaa;
+  text-align: center;
+  padding: 20px;
+  margin-top: 0px; */

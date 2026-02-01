@@ -1,0 +1,324 @@
+.market-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  font-family: "Pretendard", sans-serif;
+  color: #222;
+}
+
+.market-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.market-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.price-summary {
+  display: flex;
+  gap: 24px;
+}
+
+.price-summary .label {
+  font-size: 12px;
+  color: #888;
+  margin-right: 4px;
+}
+
+.price-summary strong {
+  font-size: 14px;
+}
+
+.divider {
+  border-bottom: 1px solid #000;
+  margin: 12px 0 24px;
+}
+
+/* 상품 영역 */
+.product-area {
+  display: flex;
+  gap: 40px;
+}
+
+.product-area img {
+  width: 320px;
+}
+
+.price-info {
+  flex: 1;
+}
+
+.price-top {
+  display: flex;
+  align-items: center;
+}
+
+.price-value {
+  margin-right: auto;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.price-top strong {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px; /* 🔥 버튼 사이 간격 */
+}
+
+.button-group button {
+  background: #1bb400;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+
+.pay-btn {
+  background: #17a300;
+}
+
+.price-top button {
+  background: #1bb400;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* 판매처 테이블 */
+.seller-box {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.seller-header,
+.seller-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 6px 0;
+}
+
+.seller-header {
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+}
+
+.seller-row {
+  border-bottom: 1px solid #eee;
+}
+
+/* 차트 */
+.chart-area {
+  margin-top: 40px;
+}
+
+.chart-area .chart-title {
+  font-size: 20px;
+  font-weight: 700;
+
+  margin-top: 0;        /* 🔥 h4 기본 margin 제거 */
+  margin-bottom: 10px;  /* 🔥 설명과의 거리 */
+}
+
+.chart-bg {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(
+    to top,
+    rgba(64, 192, 128, 0.25),
+    rgba(64, 192, 128, 0)
+  );
+}
+
+.chart-line {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='0,80 40,60 80,65 120,45 160,40 200,30 240,35 300,25' fill='none' stroke='%2340c080' stroke-width='2'/%3E%3C/svg%3E")
+    no-repeat center / cover;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.fruit-tabs {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.fruit-tab {
+  display: inline-flex;          /* ⭐ 핵심 */
+  align-items: center;           /* 세로 가운데 */
+  justify-content: center;       /* 가로 가운데 */
+
+  height: 40px;                  /* 버튼 높이 고정 */
+  padding: 0 16px;               /* 좌우만 padding */
+
+  border: 1px solid #ddd;
+  border-radius: 20px;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;                /* ⭐ 줄 높이 고정 */
+
+  white-space: nowrap;           /* ⭐ 줄바꿈 방지 */
+  text-decoration: none;
+
+  color: #333;
+  background: #fff;
+}
+
+.fruit-tab:hover {
+  border-color: #1bb400;
+  color: #1bb400;
+}
+
+.fruit-tab.active {
+  background: #1bb400;
+  color: #fff;
+  border-color: #1bb400;
+  font-weight: 600;
+}
+
+/* 🔍 검색 */
+.fruit-search {
+  margin: 16px 0;
+}
+
+.fruit-search {
+  margin-bottom: 8px; /* 아래 여백 줄여서 덜 비어 보이게 */
+}
+
+.fruit-search input {
+  width: 100%;
+  max-width: 420px;
+
+  height: 40px;                 /* 버튼들과 높이 통일 */
+  padding: 0 14px;              /* 위아래 padding 제거 */
+
+  border: 1px solid #ddd;       /* 🔥 1px로 고정 */
+  border-radius: 20px;
+
+  font-size: 14px;
+  color: #333;
+
+  outline: none;                /* 기본 포커스 제거 */
+  box-shadow: none;
+
+  transition: border-color 0.15s ease;
+}
+
+/* 포커스 시 */
+.fruit-search input:focus {
+  border-color: #1bb400;        /* 초록색만 강조 */
+}
+
+/* ▾ 더보기 */
+.toggle-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #1bb400;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 현재 선택된 과일 이름 */
+.current-fruit {
+  margin-top: 10px;     /* 버튼 아래 살짝만 띄우기 */
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+/* 펼치기 버튼 – 위 여백 줄이기 */
+.toggle-btn {
+  margin-top: -10px;      /* 🔥 기존보다 줄임 */
+  margin-bottom: 0;
+  background: none;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #1bb400;
+  border: 1px solid #1bb400;
+  border: 1px solid #1bb400; /* 기본 1px */
+}
+/* 클릭/포커스 시 */
+.toggle-btn:focus,
+.toggle-btn:focus-visible {
+  outline: none;            /* 브라우저 기본 테두리 제거 */
+  box-shadow: none;         /* 그림자 제거 */
+  border-width: 1px;        /* 항상 1px 유지 */
+}
+
+/* 시세 차트 영역 */
+.chart-area {
+  margin-top: 20px;   /* 🔥 기존 40px → 20px */
+}
+
+/* "과일 시세" 제목 */
+.chart-area h4 {
+  margin-bottom: 50px; /* 제목-그래프 간격 줄이기 */
+}
+
+/* 🔥 그래프 컴포넌트 바로 위 여백 제거 */
+.chart-area > *:not(h4) {
+  margin-top: 0 !important;
+}
+
+/* 과일 이름 (최저가 위) */
+.product-title {
+  font-size: 23px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.chart-title {
+  font-size: 20px;      /* 🔥 기존보다 키움 (18~22px 사이 추천) */
+  font-weight: 700;
+  margin-bottom: 2px;  /* 🔥 설명과의 간격 줄이기 */
+}
+
+/* 과일 버튼 줄 : 화면 밖으로 안 나가고 자동으로 2줄 이상 내려가게 */
+.fruit-tabs {
+  display: flex;
+  flex-wrap: wrap;          /* ⭐ 핵심 */
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;      /* 줄바꿈 방해 제거 */
+  overflow: visible;        /* 가로 스크롤/잘림 방지 */
+}
+
+/* 버튼(링크) 자체는 글자만 한 줄 유지 */
+.fruit-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;      /* 버튼 안 글자 줄바꿈 방지 */
+}

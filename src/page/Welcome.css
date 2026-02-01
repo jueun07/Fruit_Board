@@ -1,0 +1,116 @@
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  font-weight: bold;
+  color: #2f8f2f;
+}
+
+.nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: right;
+}
+
+.nav .active {
+  color: red;
+}
+
+.profile {
+  padding: 60px 80px;
+  background-color: white;
+  color: #333;
+}
+
+.profile h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.tab {
+  font-size: 14px;
+  color: #000;
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  background: #ccc;
+  margin: 0 16px;
+}
+
+.content {
+  display: flex;
+  gap: 40px;
+}
+
+.text {
+  flex: 1;
+  text-align: left;
+  line-height: 1.8;
+}
+
+.text p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.lines .line {
+  border-bottom: 1px dashed #ccc;
+  margin: 10px 0;
+}
+
+.image img {
+  width: 420px;
+  border-radius: 4px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header-right {
+  margin-left: auto;     /* 이 한 줄이 핵심 */
+  display: flex;
+  align-items: center;
+  gap: 30px;             /* nav와 auth 사이 간격 */
+}
+
+/* nav 메뉴 */
+.nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  text-align: right;
+  color: #fff;
+}
+
+/* auth */
+.auth a {
+  margin-left: 12px;
+  font-size: 14px;
+  color: #4c6ef5;
+}
+
+.inner {
+  max-width: 1200px;  /* 콘텐츠가 너무 넓어지지 않도록 최대 너비 설정 */
+  margin-left: auto;  /* 왼쪽 마진 자동 설정 */
+  margin-right: auto; /* 오른쪽 마진 자동 설정 */
+  padding: 0 20px;    /* 양 옆에 여백을 주어 화면 끝에 붙지 않게 함 */
+}
+

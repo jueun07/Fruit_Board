@@ -1,0 +1,117 @@
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  font-weight: bold;
+  color: #2f8f2f;
+}
+
+/* nav 메뉴 */
+.nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.nav a.active {
+  color: #ff0000;
+  font-weight: 600;
+}
+
+.profile {
+  padding: 60px 80px;
+  background-color: white;
+  color: #333;
+}
+
+.profile h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.tab {
+  font-size: 14px;
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  background: #ccc;
+  margin: 0 16px;
+}
+
+.content {
+  display: flex;
+  gap: 40px;
+}
+
+.text {
+  flex: 1;
+  text-align: left;  /* 이걸 추가! (기존 center면 left로 변경) */
+  line-height: 1.8;  /* 읽기 편하게 줄 간격 조금 넓힘 */
+}
+
+.text p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.lines .line {
+  border-bottom: 1px dashed #ccc;
+  margin: 10px 0;
+}
+
+.image img {
+  width: 420px;
+  border-radius: 4px;
+  margin-top: -55px;
+}
+
+/* header 내부 정렬 */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* 오른쪽 영역을 끝으로 밀기 */
+.header-right {
+  margin-left: auto;     /* 이 한 줄이 핵심 */
+  display: flex;
+  align-items: center;
+  gap: 30px;             /* nav와 auth 사이 간격 */
+}
+
+/* nav 메뉴 */
+.nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  text-align: right;
+  color: #fff;
+}
+
+.auth a,
+.auth button,
+.auth .nav-item,
+.auth .cart-link {
+  margin-left: 12px;
+  font-size: 16px;      /* ✅ 통일 */
+  font-weight: 600;     /* ✅ 통일 */
+  color: #ffffff;       /* 헤더 글씨가 흰색이면 */
+  text-decoration: none;
+}

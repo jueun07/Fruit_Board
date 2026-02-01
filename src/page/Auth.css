@@ -1,0 +1,163 @@
+/* 로그인 · 회원가입 공통 CSS */
+
+.login-page {
+  min-height: 100vh;
+  background: #f6f8ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  width: 360px;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.login-desc {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 24px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 6px;
+  color: #000;
+}
+
+.login-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #8bbf3d;
+}
+
+.login-button {
+  margin-top: 12px;
+  padding: 12px;
+  background: #8bbf3d;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: #79a832;
+}
+
+.login-footer {
+  margin-top: 20px;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #8bbf3d;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  width: 360px;
+  max-width: calc(100% - 40px);
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 18px 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.modal-message {
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.modal-btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  background: #8bbf3d;
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ✅ 상단바 메뉴 글씨와 닉네임/로그아웃을 같은 크기/정렬로 맞춤 */
+.nav a,
+.nav-item {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+}
+
+/* 닉네임만 강조색 */
+.user-name {
+  color: orange;
+}
+
+/* 버튼 기본 스타일 제거 */
+.logout-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.header .nav a,
+.header .auth a,
+.header .auth button,
+.header .cart-link {
+  font-size: 16px;
+}
