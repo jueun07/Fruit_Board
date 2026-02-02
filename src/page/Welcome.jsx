@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import "./Welcome.css";
+import logo from '/과일농과로고.png'
+import 지도 from "../assets/지도.png";
 
 function Welcome() {
   const { cartCount } = useCart();
@@ -40,7 +42,7 @@ function Welcome() {
     setTimeout(() => {
       setOpen(false);
       setClosing(false);
-    }, 160); // CSS transition 시간과 맞추기
+    }, 160);
   };
 
   const toggleDropdown = () => {
@@ -64,7 +66,7 @@ function Welcome() {
         <header className="header">
           <div className="inner header-inner">
             <Link to="/" className="logo">
-              <img src="/과일농과로고.png" alt="로고" />
+              <img src={logo} alt="로고" />
             </Link>
 
             <div className="header-right">
@@ -151,15 +153,13 @@ function Welcome() {
                 <Link to="/Profile" className="tab active">
                   인사말
                 </Link>
-                {/* <span className="divider" /> */}
-                {/* <Link className="tab">오시는 길</Link> */}
               </div>
 
               <div className="content">
                 <div className="text"></div>
 
                 <div className="image2">
-                  <img src="/src/assets/지도.png" alt="" />
+                  <img src={지도} alt="오시는 길 지도" />
                 </div>
               </div>
             </div>

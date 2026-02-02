@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import "./HomePage.css";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useRef, useState } from "react";
+import logo from '/과일농과로고.png'
 
 function HomePage() {
   const { cartCount } = useCart();
@@ -62,7 +63,7 @@ function HomePage() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/과일농과로고.png" alt="로고" />
+            <img src={logo} alt="로고" />
           </Link>
 
           <div className="header-right">

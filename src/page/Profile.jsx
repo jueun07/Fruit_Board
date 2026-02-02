@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import "./Profile.css";
+import logo from '/과일농과로고.png'
+import 인사말이미지 from "../assets/과일농과.png";
 
 function Profile() {
   const { cartCount } = useCart();
@@ -40,7 +42,7 @@ function Profile() {
     setTimeout(() => {
       setOpen(false);
       setClosing(false);
-    }, 160); // CSS transition 시간과 맞추기
+    }, 160);
   };
 
   const toggleDropdown = () => {
@@ -64,7 +66,7 @@ function Profile() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/과일농과로고.png" alt="로고" />
+            <img src={logo} alt="로고" />
           </Link>
 
           <div className="header-right">
@@ -149,8 +151,6 @@ function Profile() {
             <h2>인사말</h2>
 
             <div className="tabs">
-              {/* <span className="tab active">인사말</span> */}
-              {/* <span className="divider" /> */}
               <Link to="/welcome" className="tab">
                 오시는 길
               </Link>
@@ -182,7 +182,7 @@ function Profile() {
               </div>
 
               <div className="image">
-                <img src="/src/assets/과일농과.png" alt="인사말 이미지" />
+                <img src={인사말이미지} alt="인사말 이미지" />
               </div>
             </div>
           </div>

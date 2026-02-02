@@ -2,7 +2,7 @@ export const fruits = [
   {
     id: 1,
     name: "수박 한 통",
-    image: "/src/assets/수박.png",
+    imageKey: "수박",
     lowestPrice: 3200,
     highestPrice: 32500,
     sellers: [
@@ -39,7 +39,7 @@ export const fruits = [
   {
     id: 2,
     name: "바나나 한 팩",
-    image: "/src/assets/바나나.jpg",
+    imageKey: "바나나",
     lowestPrice: 5000,
     highestPrice: 25600,
     sellers: [
@@ -76,7 +76,7 @@ export const fruits = [
   {
     id: 3,
     name: "귤 한 개",
-    image: "/src/assets/귤.jpg",
+    imageKey: "귤",
     lowestPrice: 315000,
     highestPrice: 567600,
     sellers: [
@@ -113,7 +113,7 @@ export const fruits = [
   {
     id: 4,
     name: "레몬 한 개",
-    image: "/src/assets/레몬.jpg",
+    imageKey: "레몬",
     lowestPrice: 1000,
     highestPrice: 8600,
     sellers: [
@@ -150,7 +150,7 @@ export const fruits = [
   {
     id: 5,
     name: "메론 한 개",
-    image: "/src/assets/메론.png",
+    imageKey: "메론",
     lowestPrice: 12500,
     highestPrice: 25600,
     sellers: [
@@ -186,7 +186,7 @@ export const fruits = [
   {
     id: 6,
     name: "애플망고 한 개",
-    image: "/src/assets/애플망고.png",
+    imageKey: "애플망고",
     lowestPrice: 100000,
     highestPrice: 256000,
     sellers: [
@@ -222,7 +222,7 @@ export const fruits = [
   {
     id: 7,
     name: "파인애플 한 팩",
-    image: "/src/assets/파인애플.png",
+    imageKey: "파인애플",
     lowestPrice: 12500,
     highestPrice: 25600,
     sellers: [
@@ -258,7 +258,7 @@ export const fruits = [
   {
     id: 8,
     name: "딸기 한 팩",
-    image: "/src/assets/딸기.png",
+    imageKey: "딸기",
     lowestPrice: 300,
     highestPrice: 1400,
     sellers: [
@@ -294,7 +294,7 @@ export const fruits = [
   {
     id: 9,
     name: "샤인머스켓 한 묶음",
-    image: "/src/assets/샤인머스켓.jpg",
+    imageKey: "샤인머스켓",
     lowestPrice: 8000,
     highestPrice: 15000,
     sellers: [
@@ -330,7 +330,7 @@ export const fruits = [
   {
     id: 10,
     name: "복숭아 한 개",
-    image: "/src/assets/복숭아.png",
+    imageKey: "복숭아",
     lowestPrice: 2000,
     highestPrice: 5000,
     sellers: [
@@ -366,7 +366,7 @@ export const fruits = [
   {
     id: 11,
     name: "풋사과 한 개",
-    image: "/src/assets/풋사과.png",
+    imageKey: "풋사과",
     lowestPrice: 800,
     highestPrice: 2000,
     sellers: [
@@ -402,7 +402,7 @@ export const fruits = [
   {
     id: 12,
     name: "아로니아 한 팩",
-    image: "/src/assets/아로니아.png",
+    imageKey: "아로니아",
     lowestPrice: 3500,
     highestPrice: 7000,
     sellers: [
@@ -438,7 +438,7 @@ export const fruits = [
   {
     id: 13,
     name: "감자 한 팩",
-    image: "/src/assets/감자.png",
+    imageKey: "감자",
     lowestPrice: 1900,
     highestPrice: 3500,
     sellers: [
@@ -474,7 +474,7 @@ export const fruits = [
   {
     id: 14,
     name: "고구마 한 묶음",
-    image: "/src/assets/고구마.png",
+    imageKey: "고구마",
     lowestPrice: 5700,
     highestPrice: 8000,
     sellers: [
@@ -510,7 +510,7 @@ export const fruits = [
   {
     id: 15,
     name: "파 한 개",
-    image: "/src/assets/파.jpg",
+    imageKey: "파",
     lowestPrice: 600,
     highestPrice: 1900,
     sellers: [
@@ -546,7 +546,7 @@ export const fruits = [
   {
     id: 16,
     name: "연근 한 묶음",
-    image: "/src/assets/연근.png",
+    imageKey: "연근",
     lowestPrice: 2600,
     highestPrice: 4000,
     sellers: [
@@ -582,7 +582,7 @@ export const fruits = [
   {
     id: 17,
     name: "토마토 한 개",
-    image: "/src/assets/토마토.png",
+    imageKey: "토마토",
     lowestPrice: 400,
     highestPrice: 1500,
     sellers: [
@@ -618,7 +618,7 @@ export const fruits = [
   {
     id: 18,
     name: "당근 한 팩",
-    image: "/src/assets/당근.png",
+    imageKey: "당근",
     lowestPrice: 3400,
     highestPrice: 5000,
     sellers: [
@@ -654,7 +654,7 @@ export const fruits = [
   {
     id: 19,
     name: "오이 한 묶음",
-    image: "/src/assets/오이.png",
+    imageKey: "오이",
     lowestPrice: 4200,
     highestPrice: 6500,
     sellers: [

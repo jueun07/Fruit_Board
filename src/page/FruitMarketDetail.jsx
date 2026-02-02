@@ -5,6 +5,8 @@ import FruitChartPage from "./FruitChartPage";
 import { useAuth } from "../context/AuthContext";
 import "./FruitMarketDetail.css";
 import { fruits } from "../data/fruitData";
+import logo from '/과일농과로고.png'
+import { fruitImages } from "../assets/fruitImages";
 
 function FruitMarketDetail() {
   const { id } = useParams();
@@ -88,7 +90,7 @@ function FruitMarketDetail() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/과일농과로고.png" alt="로고" />
+            <img src={logo} alt="로고" />
           </Link>
 
           <div className="header-right">
@@ -121,7 +123,7 @@ function FruitMarketDetail() {
                         className="dropdown-item"
                         onClick={() => {
                           closeDropdown();
-                          navigatee("/mypage");
+                          navigate("/mypage");
                         }}
                       >
                         마이페이지
@@ -203,8 +205,10 @@ function FruitMarketDetail() {
 
           {/* 상품 정보 */}
           <div className="product-area">
-            <img src={fruit.image} alt={fruit.name} />
-
+            <img
+              src={fruitImages[fruit.imageKey]}
+              alt={fruit.name}
+            />
             <div className="price-info">
               {/* ✅ 과일 이름을 최저가 위로 이동 */}
               <div className="product-title">{fruit.name}</div>
@@ -223,7 +227,7 @@ function FruitMarketDetail() {
                         id: fruit.id,
                         name: fruit.name,
                         price: fruit.lowestPrice,
-                        img: fruit.image,
+                        img: fruitImages[fruit.imageKey],
                       });
                       alert("장바구니에 담겼습니다");
                       navigate("/ShopinCart");

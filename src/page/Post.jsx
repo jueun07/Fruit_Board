@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Post.css";
 import { API_BASE } from "../apiBase";
+import logo from '/과일농과로고.png'
 
 function Post() {
- const API_BASE = import.meta.env.VITE_API_BASE;
+  const API_BASE = import.meta.env.VITE_API_BASE;
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -135,10 +136,10 @@ function Post() {
 
           <div className="header-right">
             <nav className="nav">
-              <Link to="/Shopping">Shop</Link>
-              <Link to="/post">게시판</Link>
-              <Link to="/Profile">인사말</Link>
-              <Link to="/fruit">시세가</Link>
+              <NavLink to="/Shopping">Shop</NavLink>
+              <NavLink to="/post">게시판</NavLink>
+              <NavLink to="/Profile">인사말</NavLink>
+              <NavLink to="/fruit">시세가</NavLink>
             </nav>
 
             <div className="auth">

@@ -3,6 +3,8 @@ import { useNavigate, Link, NavLink } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
 import "./shopingPage.css";
+import logo from '/과일농과로고.png'
+import { fruitImages } from "../assets/fruitImages";
 
 function Shoping() {
   const { addToCart, cartCount } = useCart();
@@ -66,28 +68,27 @@ function Shoping() {
 
   /* ======================= 상품 데이터 ======================= */
   const [products] = useState([
-    { id: 1, name: "수박 한 개", price: 3200, img: "/src/assets/수박.png", rating: 5, category: "개" },
-    { id: 2, name: "바나나 한 팩", price: 5000, img: "/src/assets/바나나.jpg", rating: 5, category: "팩" },
-    { id: 3, name: "귤 한 개", price: 315000, img: "/src/assets/귤.jpg", rating: 5, category: "개" },
-    { id: 4, name: "레몬 한 개", price: 1000, img: "/src/assets/레몬.jpg", rating: 5, category: "개" },
-    { id: 5, name: "메론 한 개", price: 12500, img: "/src/assets/메론.png", rating: 5, category: "개" },
-    { id: 6, name: "애플망고 한 개", price: 100000, img: "/src/assets/애플망고.png", rating: 5, category: "개" },
-    { id: 7, name: "파인애플 한 팩", price: 3000, img: "/src/assets/파인애플.png", rating: 5, category: "팩" },
-    { id: 8, name: "딸기 한 팩", price: 300, img: "/src/assets/딸기.png", rating: 5, category: "팩" },
-    { id: 9, name: "샤인머스켓 한 묶음", price: 8000, img: "/src/assets/샤인머스켓.jpg", rating: 5, category: "묶음" },
-    { id: 10, name: "복숭아 한 개", price: 2000, img: "/src/assets/복숭아.png", rating: 5, category: "개" },
-    { id: 11, name: "풋사과 한 개", price: 800, img: "/src/assets/풋사과.png", rating: 5, category: "개" },
-    { id: 12, name: "아로니아 한 팩", price: 3500, img: "/src/assets/아로니아.png", rating: 5, category: "팩" },
-    { id: 13, name: "감자 한 팩", price: 1900, img: "/src/assets/감자.png", rating: 5, category: "팩" },
-    { id: 14, name: "고구마 한 묶음", price: 5700, img: "/src/assets/고구마.png", rating: 5, category: "묶음" },
-    { id: 15, name: "파 한 개", price: 600, img: "/src/assets/파.jpg", rating: 5, category: "개" },
-    { id: 16, name: "연근 한 묶음", price: 2600, img: "/src/assets/연근.png", rating: 5, category: "묶음" },
-    { id: 17, name: "토마토 한 개", price: 400, img: "/src/assets/토마토.png", rating: 5, category: "개" },
-    { id: 18, name: "당근 한 팩", price: 3400, img: "/src/assets/당근.png", rating: 5, category: "팩" },
-    { id: 19, name: "오이 한 묶음", price: 4200, img: "/src/assets/오이.png", rating: 5, category: "묶음" },
+    { id: 1, name: "수박 한 개", price: 3200, imageKey: "수박", rating: 5, category: "개" },
+    { id: 2, name: "바나나 한 팩", price: 5000, imageKey: "바나나", rating: 5, category: "팩" },
+    { id: 3, name: "귤 한 개", price: 315000, imageKey: "귤", rating: 5, category: "개" },
+    { id: 4, name: "레몬 한 개", price: 1000, imageKey: "레몬", rating: 5, category: "개" },
+    { id: 5, name: "메론 한 개", price: 12500, imageKey: "메론", rating: 5, category: "개" },
+    { id: 6, name: "애플망고 한 개", price: 100000, imageKey: "애플망고", rating: 5, category: "개" },
+    { id: 7, name: "파인애플 한 팩", price: 3000, imageKey: "파인애플", rating: 5, category: "팩" },
+    { id: 8, name: "딸기 한 팩", price: 300, imageKey: "딸기", rating: 5, category: "팩" },
+    { id: 9, name: "샤인머스켓 한 묶음", price: 8000, imageKey: "샤인머스켓", rating: 5, category: "묶음" },
+    { id: 10, name: "복숭아 한 개", price: 2000, imageKey: "복숭아", rating: 5, category: "개" },
+    { id: 11, name: "풋사과 한 개", price: 800, imageKey: "풋사과", rating: 5, category: "개" },
+    { id: 12, name: "아로니아 한 팩", price: 3500, imageKey: "아로니아", rating: 5, category: "팩" },
+    { id: 13, name: "감자 한 팩", price: 1900, imageKey: "감자", rating: 5, category: "팩" },
+    { id: 14, name: "고구마 한 묶음", price: 5700, imageKey: "고구마", rating: 5, category: "묶음" },
+    { id: 15, name: "파 한 개", price: 600, imageKey: "파", rating: 5, category: "개" },
+    { id: 16, name: "연근 한 묶음", price: 2600, imageKey: "연근", rating: 5, category: "묶음" },
+    { id: 17, name: "토마토 한 개", price: 400, imageKey: "토마토", rating: 5, category: "개" },
+    { id: 18, name: "당근 한 팩", price: 3400, imageKey: "당근", rating: 5, category: "팩" },
+    { id: 19, name: "오이 한 묶음", price: 4200, imageKey: "오이", rating: 5, category: "묶음" },
   ]);
 
-  /* ======================= 필터 로직 ======================= */
   const toggleCategory = (category) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
@@ -126,7 +127,7 @@ function Shoping() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/과일농과로고.png" alt="로고" />
+            <img src={logo} alt="로고" />
           </Link>
 
           <div className="header-right">
@@ -246,7 +247,11 @@ function Shoping() {
           <main className="product-grid">
             {filteredProducts.map((product) => (
               <div key={product.id} className="product-card">
-                <img src={product.img} alt={product.name} />
+                <img
+                  src={fruitImages[product.imageKey]}
+                  alt={product.name}
+                />
+
                 <div className="product-info">
                   <h4 className="color">{product.name}</h4>
                   <p className="price">
@@ -255,7 +260,10 @@ function Shoping() {
                   <button
                     className="add-cart"
                     onClick={() => {
-                      addToCart(product);
+                      addToCart({
+                        ...product,
+                        img: fruitImages[product.imageKey],
+                      });
                       alert("장바구니에 담겼습니다");
                     }}
                   >

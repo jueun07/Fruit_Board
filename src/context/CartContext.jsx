@@ -1,11 +1,16 @@
-/* eslint-disable react-refresh/only-export-components */
-
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const saved = localStorage.getItem("cartItems");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prev) => {
@@ -45,12 +50,14 @@ export function CartProvider({ children }) {
     setCartItems((items) => items.filter((item) => item.id !== id));
   };
 
-  // ✅ 추가: 장바구니 비우기
   const clearCart = () => {
     setCartItems([]);
   };
 
-  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = cartItems.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -65,7 +72,7 @@ export function CartProvider({ children }) {
         increaseQty,
         decreaseQty,
         removeItem,
-        clearCart,      // ✅ Provider에 노출
+        clearCart,
         cartCount,
         totalPrice,
       }}

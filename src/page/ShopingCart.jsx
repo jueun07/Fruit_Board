@@ -3,6 +3,7 @@ import { useNavigate, Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
+import logo from '/과일농과로고.png'
 
 function ShopingCart() {
   const { user, logout } = useAuth();
@@ -38,7 +39,7 @@ function ShopingCart() {
     setTimeout(() => {
       setOpen(false);
       setClosing(false);
-    }, 160); // CSS transition 시간과 맞추기
+    }, 160);
   };
 
   const toggleDropdown = () => {
@@ -55,9 +56,6 @@ function ShopingCart() {
     navigate("/");
   };
 
-
-
-  // ✅ Context에서 전부 가져오기
   const {
     cartItems,
     cartCount,
@@ -72,17 +70,17 @@ function ShopingCart() {
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">
-            <img src="/과일농과로고.png" alt="로고" />
+            <img src={logo} alt="로고" />
           </Link>
 
           <div className="header-right">
             <nav className="nav">
-              <Link to="/Shopping" className="shop-link">
+              <NavLink to="/Shopping" className="shop-link">
                 Shop
-              </Link>
-              <Link to="/post">게시판</Link>
-              <Link to="/Profile">인사말</Link>
-              <Link to="/fruit">시세가</Link>
+              </NavLink>
+              <NavLink to="/post">게시판</NavLink>
+              <NavLink to="/Profile">인사말</NavLink>
+              <NavLink to="/fruit">시세가</NavLink>
             </nav>
 
             <div className="auth">
@@ -128,9 +126,8 @@ function ShopingCart() {
                 </>
               )}
 
-
               <NavLink
-                to="/ShopinCart"
+                to="/shopincart"
                 className={({ isActive }) =>
                   isActive ? "cart-link active" : "cart-link"
                 }
@@ -141,12 +138,10 @@ function ShopingCart() {
                 )}
               </NavLink>
             </div>
-
           </div>
         </div>
       </header>
 
-      {/* ✅ main 하나만 사용 */}
       <main className="page-content">
         <div className="cart-container">
           <h2>🛒 장바구니</h2>
@@ -205,7 +200,6 @@ function ShopingCart() {
         </div>
       </main>
 
-      {/* ✅ footer는 항상 하단 */}
       <footer className="footer">
         <div className="inner">
           <p>© 과일농과. All Rights Reserved. 010-1234-5678</p>

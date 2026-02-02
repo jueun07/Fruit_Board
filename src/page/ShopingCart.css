@@ -119,3 +119,42 @@ main {
   margin-left: 4px;
   font-weight: bold;
 }
+
+.quantity button:focus,
+.quantity button:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.quantity button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.quantity button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* nav 메뉴 active */
+.header .nav a.active {
+  color: #ff0000;
+  font-weight: 500;
+}
+
+/* 장바구니 active */
+.header .auth .cart-link.active {
+  color: #ff0000;
+  font-weight: 500;
+}
+
+/* 장바구니 카운트 */
+.header .auth .cart-link .cart-count {
+  font-weight: 500;
+  color: #fff;
+}
+
+/* 장바구니 active 상태의 카운트 */
+.header .auth .cart-link.active .cart-count {
+  color: #ff0000;
+  font-weight: 500;
+}
