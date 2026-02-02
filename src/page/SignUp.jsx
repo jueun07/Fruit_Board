@@ -1,66 +1,35 @@
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import "./Auth.css";
-import logo from '/과일농과로고.png'
+import logo from "/과일농과로고.png";
 
 function SignUp() {
+  const navigate = useNavigate();
   const { cartCount } = useCart();
-  const { user, logout } = useAuth();
-  const navigater = useNavigate();
+  const { user, signup, logout } = useAuth();
 
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    const handleEsc = (e) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
-
-  const handleLogout = () => {
-    logout();
-    setOpen(false);
-    navigater("/");
-  };
-
-
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [pw2, setPw2] = useState("");
 
-  // ✅ 모달 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const openModal = (msg) => {
+  const openModal = (msg, success = false) => {
     setModalMessage(msg);
+    setIsSuccess(success);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const closeModal = () => setIsModalOpen(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !email.trim() || !pw.trim() || !pw2.trim()) {
+    if (!email.trim() || !pw.trim() || !pw2.trim()) {
       openModal("모든 정보를 입력해주세요.");
       return;
     }
@@ -70,16 +39,17 @@ function SignUp() {
       return;
     }
 
-    // ✅ 성공 모달
-    openModal("회원가입 되었습니다!");
+    try {
+      await signup(email, pw);
+      openModal("회원가입이 완료되었습니다. 로그인해주세요.", true);
+    } catch (e) {
+      openModal(e.message || "회원가입 실패");
+    }
   };
 
-  // ✅ 성공 모달에서 '확인' 누르면 홈으로 이동
   const handleModalConfirm = () => {
     closeModal();
-    if (modalMessage === "회원가입 되었습니다!") {
-      navigater("/");
-    }
+    if (isSuccess) navigate("/Login");
   };
 
   return (
@@ -100,47 +70,24 @@ function SignUp() {
 
             <div className="auth">
               {user ? (
-                <div className="user-menu" ref={dropdownRef}>
+                <>
+                  <span className="nav-item user-name">{user.email}</span>
                   <button
                     type="button"
-                    className="user-trigger"
-                    onClick={() => setOpen((v) => !v)}
+                    className="nav-item logout-btn"
+                    onClick={logout}
                   >
-                    <span>{user.name}</span>
-                    <span>님</span>
-                    <span>▼</span>
+                    로그아웃
                   </button>
-
-                  {open && (
-                    <div className="dropdown">
-                      <button
-                        type="button"
-                        className="dropdown-item"
-                        onClick={() => {
-                          setOpen(false);
-                          navigater("/mypage");
-                        }}
-                      >
-                        마이페이지
-                      </button>
-
-                      <button
-                        type="button"
-                        className="dropdown-item danger"
-                        onClick={handleLogout}
-                      >
-                        로그아웃
-                      </button>
-                    </div>
-                  )}
-                </div>
+                </>
               ) : (
                 <>
                   <Link to="/Login">로그인</Link>
-                  <Link to="/SignUp" style={{color:"red"}}>회원가입</Link>
+                  <Link to="/SignUp" style={{ color: "red" }}>
+                    회원가입
+                  </Link>
                 </>
               )}
-
 
               <NavLink
                 to="/ShopinCart"
@@ -154,7 +101,6 @@ function SignUp() {
                 )}
               </NavLink>
             </div>
-
           </div>
         </div>
       </header>
@@ -162,20 +108,11 @@ function SignUp() {
       <div className="login-page">
         <div className="login-box">
           <h1 className="login-title">회원가입</h1>
-          <p className="login-desc">간단한 정보 입력으로 회원가입을 완료하세요.</p>
+          <p className="login-desc">
+            이메일과 비밀번호로 회원가입을 진행합니다.
+          </p>
 
           <form className="login-form" onSubmit={handleSubmit}>
-            <label>
-              이름
-              <input
-                type="text"
-                placeholder="이름 입력"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
-
             <label>
               이메일
               <input
@@ -221,7 +158,7 @@ function SignUp() {
             <button
               type="button"
               className="link-button"
-              onClick={() => navigater("/Login")}
+              onClick={() => navigate("/Login")}
             >
               로그인
             </button>
@@ -229,13 +166,9 @@ function SignUp() {
         </div>
       </div>
 
-      {/* ✅ 모달 */}
       {isModalOpen && (
         <div className="modal-backdrop" onClick={handleModalConfirm}>
-          <div
-            className="modal-box"
-            onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫힘 방지
-          >
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <h3 className="modal-title">알림</h3>
             <p className="modal-message">{modalMessage}</p>
             <div className="modal-actions">

@@ -3,14 +3,13 @@ import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import "./Auth.css";
-import logo from '/과일농과로고.png'
+import logo from "/과일농과로고.png";
 
 function Login() {
-  const navigater = useNavigate();
+  const navigate = useNavigate();
   const { cartCount } = useCart();
   const { user, login, logout } = useAuth();
 
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
@@ -24,28 +23,27 @@ function Login() {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const closeModal = () => setIsModalOpen(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !email.trim() || !pw.trim()) {
-      openModal("이름, 이메일, 비밀번호를 모두 입력해주세요.");
+    if (!email.trim() || !pw.trim()) {
+      openModal("이메일과 비밀번호를 입력해주세요.");
       return;
     }
 
-    login({ name });
-
-    openModal("로그인 되었습니다!", true);
+    try {
+      await login(email, pw);
+      openModal("로그인 되었습니다!", true);
+    } catch (e) {
+      openModal(e.message || "로그인 실패");
+    }
   };
 
   const handleModalConfirm = () => {
     closeModal();
-    if (isSuccess) {
-      navigater("/");
-    }
+    if (isSuccess) navigate("/");
   };
 
   return (
@@ -67,12 +65,9 @@ function Login() {
             <div className="auth">
               {user ? (
                 <>
-                  {/* ✅ 인라인 스타일 제거 + nav랑 동일한 스타일 클래스 적용 */}
                   <span className="nav-item user-name">
-                    {user.name} 님
+                    {user.email}
                   </span>
-
-                  {/* ✅ 버튼도 메뉴처럼 보이게 클래스 적용 */}
                   <button
                     type="button"
                     className="nav-item logout-btn"
@@ -115,17 +110,6 @@ function Login() {
 
           <form className="login-form" onSubmit={handleSubmit}>
             <label>
-              이름
-              <input
-                type="text"
-                placeholder="이름 입력"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
-
-            <label>
               이메일
               <input
                 type="email"
@@ -159,7 +143,7 @@ function Login() {
             <button
               type="button"
               className="link-button"
-              onClick={() => navigater("/SignUp")}
+              onClick={() => navigate("/SignUp")}
             >
               회원가입
             </button>

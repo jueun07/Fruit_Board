@@ -102,7 +102,6 @@ function Post() {
     const { error } = await supabase.from("posts").insert({
       title,
       content,
-      author: user.email,
     });
 
     if (error) {

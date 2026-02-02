@@ -20,12 +20,12 @@ export function AuthProvider({ children }) {
 
   const login = (userInfo) => {
     setUser(userInfo);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(userInfo)); // ✅ 저장
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(userInfo));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem(STORAGE_KEY); // ✅ 삭제
+    localStorage.removeItem(STORAGE_KEY);
   };
 
   return (
