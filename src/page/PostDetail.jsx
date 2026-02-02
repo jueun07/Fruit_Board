@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
+import { supabase } from "../supabase";
 
 function PostDetail({ post, onClose, onDelete, onUpdate }) {
-  const API_BASE = import.meta.env.DEV ? "http://localhost:3001" : "";
-
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
 
@@ -10,97 +9,117 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
   const [editTitle, setEditTitle] = useState(post.title);
   const [editContent, setEditContent] = useState(post.content);
 
-  // 댓글 불러오기
+  /* =====================
+     댓글 불러오기
+  ====================== */
   useEffect(() => {
-    if (!import.meta.env.DEV) {
-      setComments([]);
-      return;
-    }
+    const fetchComments = async () => {
+      const { data, error } = await supabase
+        .from("comments")
+        .select("*")
+        .eq("post_id", post.id)
+        .order("created_at", { ascending: true });
 
-    fetch(`${API_BASE}/posts/${post.id}/comments`)
-      .then((res) => res.json())
-      .then(setComments)
-      .catch(console.error);
+      if (error) {
+        console.error("댓글 조회 실패", error);
+        return;
+      }
+      setComments(data);
+    };
+
+    fetchComments();
   }, [post.id]);
 
-  // 댓글 작성
-  const submitComment = () => {
-    if (!import.meta.env.DEV) {
-      alert("배포(GitHub Pages)에서는 댓글 기능이 동작하지 않습니다. 로컬에서만 가능합니다.");
-      return;
-    }
-
+  /* =====================
+     댓글 작성
+  ====================== */
+  const submitComment = async () => {
     if (!comment.trim()) return;
 
-    fetch(`${API_BASE}/posts/${post.id}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content: comment,
-        author: "사용자",
-      }),
-    })
-      .then(() => {
-        setComment("");
-        return fetch(`${API_BASE}/posts/${post.id}/comments`);
-      })
-      .then((res) => res.json())
-      .then(setComments)
-      .catch(console.error);
-  };
+    const { error } = await supabase.from("comments").insert({
+      post_id: post.id,
+      content: comment,
+      author: "사용자", // 추후 로그인 사용자로 교체 가능
+    });
 
-  // 댓글 삭제
-  const deleteComment = (id) => {
-    if (!import.meta.env.DEV) {
-      alert("배포(GitHub Pages)에서는 삭제 기능이 동작하지 않습니다. 로컬에서만 가능합니다.");
+    if (error) {
+      alert("댓글 등록 실패");
+      console.error(error);
       return;
     }
 
-    fetch(`${API_BASE}/comments/${id}`, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setComments(comments.filter((c) => c.id !== id));
-      })
-      .catch(console.error);
+    setComment("");
+
+    const { data } = await supabase
+      .from("comments")
+      .select("*")
+      .eq("post_id", post.id)
+      .order("created_at", { ascending: true });
+
+    setComments(data);
   };
 
-  // 게시글 수정 저장
-  const saveEdit = () => {
-    if (!import.meta.env.DEV) {
-      alert("배포(GitHub Pages)에서는 수정 기능이 동작하지 않습니다. 로컬에서만 가능합니다.");
+  /* =====================
+     댓글 삭제
+  ====================== */
+  const deleteComment = async (id) => {
+    if (!window.confirm("댓글을 삭제할까요?")) return;
+
+    const { error } = await supabase
+      .from("comments")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      alert("댓글 삭제 실패");
+      console.error(error);
       return;
     }
 
-    fetch(`${API_BASE}/posts/${post.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    setComments(comments.filter((c) => c.id !== id));
+  };
+
+  /* =====================
+     게시글 수정
+  ====================== */
+  const saveEdit = async () => {
+    const { error } = await supabase
+      .from("posts")
+      .update({
         title: editTitle,
         content: editContent,
-      }),
-    })
-      .then(() => {
-        setIsEdit(false);
-        onUpdate();
       })
-      .catch(console.error);
-  };
+      .eq("id", post.id);
 
-  const deletePost = () => {
-    if (!import.meta.env.DEV) {
-      alert("배포(GitHub Pages)에서는 삭제 기능이 동작하지 않습니다. 로컬에서만 가능합니다.");
+    if (error) {
+      alert("게시글 수정 실패");
+      console.error(error);
       return;
     }
 
+    setIsEdit(false);
+    onUpdate();
+  };
+
+  /* =====================
+     게시글 삭제
+  ====================== */
+  const deletePost = async () => {
     if (!window.confirm("게시글을 삭제할까요?")) return;
 
-    fetch(`${API_BASE}/posts/${post.id}`, { method: "DELETE" })
-      .then(() => {
-        onDelete(post.id);
-        onClose();
-      })
-      .catch(console.error);
+    const { error } = await supabase
+      .from("posts")
+      .delete()
+      .eq("id", post.id);
+
+    if (error) {
+      alert("게시글 삭제 실패");
+      console.error(error);
+      return;
+    }
+
+    onDelete(post.id);
+    onClose();
   };
 
   return (
@@ -111,8 +130,14 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
 
       {isEdit ? (
         <>
-          <input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} />
-          <textarea value={editContent} onChange={(e) => setEditContent(e.target.value)} />
+          <input
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+          <textarea
+            value={editContent}
+            onChange={(e) => setEditContent(e.target.value)}
+          />
           <div className="detail-actions">
             <button onClick={saveEdit}>저장</button>
             <button onClick={() => setIsEdit(false)}>취소</button>
@@ -133,7 +158,6 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
       )}
 
       <hr />
-      <br />
       <h4>댓글</h4>
 
       <ul className="comment-list">
