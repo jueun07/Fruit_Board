@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import "./Auth.css";
 import logo from "/과일농과로고.png";
+import { supabase } from "../supabase";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -29,22 +30,22 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email.trim() || !pw.trim() || !pw2.trim()) {
-      openModal("모든 정보를 입력해주세요.");
+    if (!email || !pw || pw !== pw2) {
+      openModal("입력값을 다시 확인해주세요.");
       return;
     }
 
-    if (pw !== pw2) {
-      openModal("비밀번호가 서로 다릅니다.");
+    const { error } = await supabase.auth.signUp({
+      email,
+      password: pw,
+    });
+
+    if (error) {
+      openModal("회원가입 실패: " + error.message);
       return;
     }
 
-    try {
-      await signup(email, pw);
-      openModal("회원가입이 완료되었습니다. 로그인해주세요.", true);
-    } catch (e) {
-      openModal(e.message || "회원가입 실패");
-    }
+    openModal("회원가입 되었습니다! 이메일을 확인해주세요.");
   };
 
   const handleModalConfirm = () => {

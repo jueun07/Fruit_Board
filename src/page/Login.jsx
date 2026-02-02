@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import "./Auth.css";
 import logo from "/과일농과로고.png";
+import { supabase } from "../supabase";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,12 +34,24 @@ function Login() {
       return;
     }
 
-    try {
-      await login(email, pw);
-      openModal("로그인 되었습니다!", true);
-    } catch (e) {
-      openModal(e.message || "로그인 실패");
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password: pw,
+    });
+
+    if (error) {
+      openModal("로그인 실패: " + error.message);
+      return;
     }
+
+    // ✅ Supabase 세션 기반 사용자 저장
+    login({
+      id: data.user.id,
+      email: data.user.email,
+      name: data.user.email.split("@")[0],
+    });
+
+    openModal("로그인 되었습니다!", true);
   };
 
   const handleModalConfirm = () => {
