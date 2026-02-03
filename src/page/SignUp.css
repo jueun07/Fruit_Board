@@ -18,7 +18,6 @@
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #000;
 }
 
 .login-desc {
@@ -38,7 +37,6 @@
   flex-direction: column;
   font-size: 14px;
   gap: 6px;
-  color: #000;
 }
 
 .login-form input {
@@ -83,76 +81,4 @@
   color: #8bbf3d;
   cursor: pointer;
   font-weight: 600;
-}
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modal-box {
-  width: 360px;
-  max-width: calc(100% - 40px);
-  background: #fff;
-  border-radius: 12px;
-  padding: 18px 18px 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-}
-
-.modal-title {
-  margin: 0 0 10px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.modal-message {
-  margin: 0 0 16px;
-  line-height: 1.4;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.modal-btn {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 14px;
-  cursor: pointer;
-  background: #8bbf3d;
-  color: #fff;
-  font-weight: 700;
-}
-
-.nav a,
-.nav-item {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 16px;
-}
-
-.user-name {
-  color: orange;
-}
-
-.logout-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.header .nav a,
-.header .auth a,
-.header .auth button,
-.header .cart-link {
-  font-size: 16px;
 }

@@ -1,12 +1,13 @@
 import { Link, useParams, useNavigate, NavLink } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import FruitChartPage from "./FruitChartPage";
 import { useAuth } from "../context/AuthContext";
 import "./FruitMarketDetail.css";
 import { fruits } from "../data/fruitData";
-import logo from '/과일농과로고.png'
+import logo from "/과일농과로고.png";
 import { fruitImages } from "../assets/fruitImages";
+import { useDropdown } from "../hooks/useDropdown";
 
 function FruitMarketDetail() {
   const { id } = useParams();
@@ -15,45 +16,13 @@ function FruitMarketDetail() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeDropdown();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
-
-  const closeDropdown = () => {
-    if (!open) return;
-    setClosing(true);
-    setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-    }, 160); // CSS transition 시간과 맞추기
-  };
-
-  const toggleDropdown = () => {
-    if (open) {
-      closeDropdown();
-    } else {
-      setOpen(true);
-    }
-  };
+  const {
+  open,
+  closing,
+  dropdownRef,
+  toggleDropdown,
+  closeDropdown,
+} = useDropdown();
 
   const handleLogout = () => {
     closeDropdown();
@@ -61,9 +30,6 @@ function FruitMarketDetail() {
     navigate("/");
   };
 
-
-
-  /* ✅ 검색 + 더보기 상태 */
   const [search, setSearch] = useState("");
   const [showAll, setShowAll] = useState(false);
 
@@ -74,7 +40,6 @@ function FruitMarketDetail() {
     return <div style={{ padding: 40 }}>존재하지 않는 과일입니다.</div>;
   }
 
-  /* ✅ 검색 우선, 아니면 더보기 */
   const filteredFruits = fruits.filter((f) => {
     const keyword = search.trim();
     const searchTarget = `${f.name} ${f.unit || ""}`;
@@ -158,7 +123,6 @@ function FruitMarketDetail() {
                 )}
               </NavLink>
             </div>
-
           </div>
         </div>
       </header>
@@ -205,10 +169,7 @@ function FruitMarketDetail() {
 
           {/* 상품 정보 */}
           <div className="product-area">
-            <img
-              src={fruitImages[fruit.imageKey]}
-              alt={fruit.name}
-            />
+            <img src={fruitImages[fruit.imageKey]} alt={fruit.name} />
             <div className="price-info">
               {/* ✅ 과일 이름을 최저가 위로 이동 */}
               <div className="product-title">{fruit.name}</div>

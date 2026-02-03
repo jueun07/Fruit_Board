@@ -9,9 +9,6 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
   const [editTitle, setEditTitle] = useState(post.title);
   const [editContent, setEditContent] = useState(post.content);
 
-  /* =====================
-     댓글 불러오기
-  ====================== */
   useEffect(() => {
     const fetchComments = async () => {
       const { data, error } = await supabase
@@ -30,9 +27,6 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
     fetchComments();
   }, [post.id]);
 
-  /* =====================
-     댓글 작성
-  ====================== */
   const submitComment = async () => {
     if (!comment.trim()) return;
 
@@ -59,9 +53,6 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
     setComments(data);
   };
 
-  /* =====================
-     댓글 삭제
-  ====================== */
   const deleteComment = async (id) => {
     if (!window.confirm("댓글을 삭제할까요?")) return;
 
@@ -79,9 +70,6 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
     setComments(comments.filter((c) => c.id !== id));
   };
 
-  /* =====================
-     게시글 수정
-  ====================== */
   const saveEdit = async () => {
     const { error } = await supabase
       .from("posts")
@@ -101,9 +89,6 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
     onUpdate();
   };
 
-  /* =====================
-     게시글 삭제
-  ====================== */
   const deletePost = async () => {
     if (!window.confirm("게시글을 삭제할까요?")) return;
 

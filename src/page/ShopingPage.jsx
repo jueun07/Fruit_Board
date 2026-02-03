@@ -1,10 +1,11 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import "./shopingPage.css";
 import logo from '/과일농과로고.png'
 import { fruitImages } from "../assets/fruitImages";
+import { useDropdown } from "../hooks/useDropdown";
 
 function Shoping() {
   const { addToCart, cartCount } = useCart();
@@ -14,43 +15,13 @@ function Shoping() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedPrices, setSelectedPrices] = useState([]);
 
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const dropdownRef = useRef(null);
-
-  /* ======================= 드롭다운 이벤트 ======================= */
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeDropdown();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
-
-  const closeDropdown = () => {
-    if (!open) return;
-    setClosing(true);
-    setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-    }, 160);
-  };
-
-  const toggleDropdown = () => {
-    open ? closeDropdown() : setOpen(true);
-  };
+  const {
+  open,
+  closing,
+  dropdownRef,
+  toggleDropdown,
+  closeDropdown,
+} = useDropdown();
 
   const handleLogout = () => {
     closeDropdown();
@@ -58,7 +29,6 @@ function Shoping() {
     navigate("/");
   };
 
-  /* ======================= 가격대 ======================= */
   const PRICE_RANGES = [
     { label: "1,000원 이하", min: 0, max: 1000 },
     { label: "1,000원 ~ 5,000원", min: 1000, max: 5000 },
@@ -66,7 +36,6 @@ function Shoping() {
     { label: "10,000원 이상", min: 10000, max: Infinity },
   ];
 
-  /* ======================= 상품 데이터 ======================= */
   const [products] = useState([
     { id: 1, name: "수박 한 개", price: 3200, imageKey: "수박", rating: 5, category: "개" },
     { id: 2, name: "바나나 한 팩", price: 5000, imageKey: "바나나", rating: 5, category: "팩" },

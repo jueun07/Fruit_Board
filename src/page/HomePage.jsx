@@ -2,61 +2,22 @@ import { useNavigate, NavLink, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import "./HomePage.css";
 import { useAuth } from "../context/AuthContext";
-import { useEffect, useRef, useState } from "react";
-import logo from '/과일농과로고.png'
+import logo from "/과일농과로고.png";
+import { useDropdown } from "../hooks/useDropdown";
 
 function HomePage() {
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
-  const navigater = useNavigate();
+  const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeDropdown();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
-
-  const closeDropdown = () => {
-    if (!open) return;
-    setClosing(true);
-    setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-    }, 160);
-  };
-
-  const toggleDropdown = () => {
-    if (open) {
-      closeDropdown();
-    } else {
-      setOpen(true);
-    }
-  };
+  const { open, closing, dropdownRef, toggleDropdown, closeDropdown } =
+    useDropdown();
 
   const handleLogout = () => {
     closeDropdown();
     logout();
     navigate("/");
   };
-
 
   return (
     <>
@@ -94,7 +55,7 @@ function HomePage() {
                         className="dropdown-item"
                         onClick={() => {
                           closeDropdown();
-                          navigater("/mypage");
+                          navigate("/mypage");
                         }}
                       >
                         마이페이지
@@ -117,7 +78,6 @@ function HomePage() {
                 </>
               )}
 
-
               <NavLink
                 to="/ShopinCart"
                 className={({ isActive }) =>
@@ -139,7 +99,7 @@ function HomePage() {
           <h1 className="main-title">과일농과</h1>
           <h2 className="sub-title">최저가 과일 구매 사이트</h2>
           <br />
-          <button onClick={() => navigater("/Shopping")} className="cta-button">
+          <button onClick={() => navigate("/Shopping")} className="cta-button">
             쇼핑하기
           </button>
         </div>

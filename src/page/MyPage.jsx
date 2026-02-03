@@ -1,8 +1,9 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
-import { useEffect, useRef, useState } from "react";
-import logo from '/과일농과로고.png'
+import logo from "/과일농과로고.png";
+import { useDropdown } from "../hooks/useDropdown";
+import { useState, useEffect } from "react";
 
 function MyPage() {
   const navigate = useNavigate();
@@ -11,58 +12,22 @@ function MyPage() {
 
   const [orders, setOrders] = useState([]);
 
-  // ✅ 드롭다운 상태 추가
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const dropdownRef = useRef(null);
+  const { open, closing, dropdownRef, toggleDropdown, closeDropdown } =
+    useDropdown();
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("orders") || "[]");
-    // 로그인 사용자면 본인 주문만 필터링(원하면 제거 가능)
-    const filtered = user?.name ? saved.filter((o) => o.userName === user.name) : saved;
+    const filtered = user?.name
+      ? saved.filter((o) => o.userName === user.name)
+      : saved;
     setOrders(filtered);
   }, [user]);
-
-  // ✅ 바깥 클릭/ESC 닫기
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeDropdown();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
-
-  const closeDropdown = () => {
-    if (!open) return;
-    setClosing(true);
-    setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-    }, 160); // CSS transition 시간과 맞추기
-  };
-
-  const toggleDropdown = () => {
-    if (open) closeDropdown();
-    else setOpen(true);
-  };
 
   const handleLogout = async () => {
     closeDropdown();
 
     try {
-      await logout(); // logout이 비동기면 반드시 await
+      await logout();
     } finally {
       navigate("/", { replace: true });
     }
@@ -134,7 +99,9 @@ function MyPage() {
                 }
               >
                 장바구니
-                {cartCount > 0 && <span className="cart-count">({cartCount})</span>}
+                {cartCount > 0 && (
+                  <span className="cart-count">({cartCount})</span>
+                )}
               </NavLink>
             </div>
           </div>
@@ -150,7 +117,9 @@ function MyPage() {
           {orders.length === 0 ? (
             <p>주문내역이 없습니다.</p>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+            >
               {orders.map((o) => (
                 <div
                   key={o.orderId}
@@ -161,7 +130,9 @@ function MyPage() {
                     padding: "14px",
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <strong>주문번호 : {o.orderId}</strong>
                     <span>{new Date(o.createdAt).toLocaleString()}</span>
                   </div>
@@ -170,12 +141,17 @@ function MyPage() {
                     {o.items.map((it) => (
                       <div
                         key={it.id}
-                        style={{ display: "flex", justifyContent: "space-between" }}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
                       >
                         <span>
                           {it.name} x {it.quantity}
                         </span>
-                        <span>{(it.price * it.quantity).toLocaleString()}원</span>
+                        <span>
+                          {(it.price * it.quantity).toLocaleString()}원
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -184,7 +160,13 @@ function MyPage() {
                     합계 : {Number(o.totalPrice).toLocaleString()}원
                   </div>
 
-                  <div style={{ marginTop: "6px", color: "#666", fontSize: "14px" }}>
+                  <div
+                    style={{
+                      marginTop: "6px",
+                      color: "#666",
+                      fontSize: "14px",
+                    }}
+                  >
                     배송지 : {o.shipping?.address}
                   </div>
                 </div>

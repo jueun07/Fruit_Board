@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
@@ -6,6 +6,7 @@ import PostDetail from "./PostDetail";
 import { supabase } from "../supabase";
 import "./Post.css";
 import logo from "/과일농과로고.png";
+import { useDropdown } from "../hooks/useDropdown";
 
 function Post() {
   const [posts, setPosts] = useState([]);
@@ -16,47 +17,15 @@ function Post() {
 
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate();;
 
-  /* =====================
-     유저 드롭다운 제어
-  ====================== */
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeDropdown();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
-
-  const closeDropdown = () => {
-    if (!open) return;
-    setClosing(true);
-    setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-    }, 160);
-  };
-
-  const toggleDropdown = () => {
-    if (open) closeDropdown();
-    else setOpen(true);
-  };
+  const {
+  open,
+  closing,
+  dropdownRef,
+  toggleDropdown,
+  closeDropdown,
+} = useDropdown();
 
   const handleLogout = () => {
     closeDropdown();
@@ -64,9 +33,6 @@ function Post() {
     navigate("/");
   };
 
-  /* =====================
-     게시글 최초 로딩
-  ====================== */
   useEffect(() => {
     const fetchPosts = async () => {
       const { data, error } = await supabase
@@ -88,9 +54,6 @@ function Post() {
     (a, b) => (b.is_pinned ?? 0) - (a.is_pinned ?? 0)
   );
 
-  /* =====================
-     게시글 작성
-  ====================== */
   const handleSubmit = async () => {
     if (!title.trim() || !content.trim()) return;
 
@@ -123,7 +86,6 @@ function Post() {
 
   return (
     <div className="page-wrap">
-      {/* ================= Header ================= */}
       <header className="header">
         <div className="inner header-inner">
           <Link to="/" className="logo">

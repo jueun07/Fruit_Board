@@ -9,7 +9,8 @@ import { supabase } from "../supabase";
 function SignUp() {
   const navigate = useNavigate();
   const { cartCount } = useCart();
-  const { user, signup, logout } = useAuth();
+  const { user, logout } = useAuth();
+  const [name, setName] = useState("");
 
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
@@ -30,14 +31,37 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!email || !pw || pw !== pw2) {
-      openModal("입력값을 다시 확인해주세요.");
+    const cleanName = name.trim();
+    const cleanEmail = email.trim();
+
+    if (!cleanName) {
+      openModal("이름을 입력해주세요.");
+      return;
+    }
+
+    if (!cleanEmail) {
+      openModal("이메일을 입력해주세요.");
+      return;
+    }
+
+    if (pw.length < 6) {
+      openModal("비밀번호는 최소 6자 이상이어야 합니다.");
+      return;
+    }
+
+    if (pw !== pw2) {
+      openModal("비밀번호가 서로 일치하지 않습니다.");
       return;
     }
 
     const { error } = await supabase.auth.signUp({
-      email,
+      email: cleanEmail,
       password: pw,
+      options: {
+        data: {
+          name: cleanName, // ✅ user_metadata 저장
+        },
+      },
     });
 
     if (error) {
@@ -45,7 +69,8 @@ function SignUp() {
       return;
     }
 
-    openModal("회원가입 되었습니다! 이메일을 확인해주세요.");
+    // ✅ 성공 처리
+    openModal("회원가입 되었습니다! 이메일을 확인해주세요.", true);
   };
 
   const handleModalConfirm = () => {
@@ -114,6 +139,17 @@ function SignUp() {
           </p>
 
           <form className="login-form" onSubmit={handleSubmit}>
+            <label>
+              이름
+              <input
+                type="text"
+                placeholder="이름 입력"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </label>
+
             <label>
               이메일
               <input

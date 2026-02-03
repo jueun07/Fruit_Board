@@ -13,6 +13,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const [name, setName] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
@@ -34,6 +35,12 @@ function Login() {
       return;
     }
 
+    if (!name.trim()) {
+      openModal("이름을 입력해주세요.");
+      return;
+    }
+
+    // 1️⃣ 로그인 (이메일/비번)
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password: pw,
@@ -44,13 +51,21 @@ function Login() {
       return;
     }
 
-    // ✅ Supabase 세션 기반 사용자 저장
+    // 2️⃣ 로그인 성공 후 이름 저장 (user_metadata)
+    await supabase.auth.updateUser({
+      data: {
+        name: name,
+      },
+    });
+
+    // 3️⃣ Context에 사용자 저장
     login({
       id: data.user.id,
       email: data.user.email,
-      name: data.user.email.split("@")[0],
+      name: name,
     });
 
+    // 4️⃣ 성공 안내
     openModal("로그인 되었습니다!", true);
   };
 
@@ -78,9 +93,7 @@ function Login() {
             <div className="auth">
               {user ? (
                 <>
-                  <span className="nav-item user-name">
-                    {user.email}
-                  </span>
+                  <span className="nav-item user-name">{user.email}</span>
                   <button
                     type="button"
                     className="nav-item logout-btn"
@@ -122,6 +135,17 @@ function Login() {
           </p>
 
           <form className="login-form" onSubmit={handleSubmit}>
+            <label>
+              이름
+              <input
+                type="text"
+                placeholder="이름 입력"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </label>
+
             <label>
               이메일
               <input

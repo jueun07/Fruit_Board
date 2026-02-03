@@ -1,64 +1,31 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import "./Welcome.css";
 import logo from '/과일농과로고.png'
 import 지도 from "../assets/지도.png";
+import { useDropdown } from "../hooks/useDropdown";
 
 function Welcome() {
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
-  const navigater = useNavigate();
+  const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
-  const [closing, setClosing] = useState(false);
-  const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        closeDropdown();
-      }
-    };
-    const handleEsc = (e) => {
-      if (e.key === "Escape") closeDropdown();
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
-
-  const closeDropdown = () => {
-    if (!open) return;
-    setClosing(true);
-    setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-    }, 160);
-  };
-
-  const toggleDropdown = () => {
-    if (open) {
-      closeDropdown();
-    } else {
-      setOpen(true);
-    }
-  };
+  const {
+  open,
+  closing,
+  dropdownRef,
+  toggleDropdown,
+  closeDropdown,
+} = useDropdown();
 
   const handleLogout = () => {
     closeDropdown();
     logout();
     navigate("/");
   };
-
 
   return (
     <>
@@ -99,7 +66,7 @@ function Welcome() {
                           className="dropdown-item"
                           onClick={() => {
                             closeDropdown();
-                            navigater("/mypage");
+                            navigate("/mypage");
                           }}
                         >
                           마이페이지
