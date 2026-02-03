@@ -59,18 +59,16 @@
   font-size: 14px;
 }
 
-/* 메인 콘텐츠 - 화면 전체를 덮고 정중앙 배치 */
 .main-content {
-  height: 100vh; /* 화면 높이 전체 사용 */
-  width: 205vh;
+  height: 100vh;
+  width: 100vw;              /* ⭐ viewport 기준 */
+  margin-left: calc(50% - 50vw); /* ⭐ 중앙 기준 보정 */
   display: flex;
-  justify-content: center;  /* 수평 중앙 */
-  align-items: center;      /* 수직 중앙 */
-  background:  
-              url('/src/assets/메인2.png'); /* 원하는 과일 배경 이미지 넣기 */
+  justify-content: center;
+  align-items: center;
+  background: url('/src/assets/메인2.png');
   background-size: cover;
   background-position: center;
-  text-align: center;
 }
 
 .main-title {

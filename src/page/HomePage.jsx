@@ -95,13 +95,18 @@ function HomePage() {
       </header>
 
       <main className="main-content">
-        <div className="hero-text">
-          <h1 className="main-title">과일농과</h1>
-          <h2 className="sub-title">최저가 과일 구매 사이트</h2>
-          <br />
-          <button onClick={() => navigate("/Shopping")} className="cta-button">
-            쇼핑하기
-          </button>
+        <div className="app-wrap">
+          <div className="hero-text">
+            <h1 className="main-title">과일농과</h1>
+            <h2 className="sub-title">최저가 과일 구매 사이트</h2>
+            <br />
+            <button
+              onClick={() => navigate("/Shopping")}
+              className="cta-button"
+            >
+              쇼핑하기
+            </button>
+          </div>
         </div>
       </main>
     </>

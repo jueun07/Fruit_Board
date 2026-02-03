@@ -1,5 +1,5 @@
 #root {
-  width: 100%;
+  min-height: 100vh;
 }
 * {
   margin: 0;
@@ -19,6 +19,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100%;
+  height: auto; /* ⭐ 핵심 */
+  overflow-x: hidden;
 }
 
 a {
@@ -74,19 +81,30 @@ button:focus-visible {
 }
 
 .app-wrap {
-  max-width: 1200px; /* PC 기준 그대로 */
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
+  padding: 0 16px; /* ⭐ 이게 핵심 */
 }
 
-/* 모바일에서만 강제 축소 */
 @media (max-width: 768px) {
   .app-wrap {
     width: 1200px;
-    transform: scale(0.9);
-    transform-origin: top center;
+    /* transform: scale(0.85);
+    transform-origin: top center; */
   }
 
   body {
     overflow-x: hidden;
   }
+}
+
+.app-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.app-full {
+  width: 100%;
 }
