@@ -72,3 +72,21 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.app-wrap {
+  max-width: 1200px; /* PC 기준 그대로 */
+  margin: 0 auto;
+}
+
+/* 모바일에서만 강제 축소 */
+@media (max-width: 768px) {
+  .app-wrap {
+    width: 1200px;
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+}

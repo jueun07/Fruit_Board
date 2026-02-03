@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { CartProvider } from "./context/CartContext"; // ✅ 추가
 
 import Profile from "./page/Profile.jsx";
@@ -16,41 +15,25 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import MyPage from "./page/MyPage.jsx";
 
 function App() {
-  const [msg, setMsg] = useState("");
-
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      fetch("http://localhost:3001/api/test")
-        .then((res) => res.json())
-        .then((data) => setMsg(data.message))
-        .catch((err) => console.error(err));
-    } else {
-      setMsg("");
-    }
-  }, []);
-
-
   return (
     <AuthProvider>
       <CartProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/Shopping" element={<Shoping />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/shopincart" element={<ShopingCart />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/post" element={<Post />} />
-          <Route path="/mypage" element={<MyPage />} />
-
-          {/* 과일 상세 */}
-          <Route path="/fruit/:id" element={<FruitMarketDetail />} />
-
-          {/* /fruit → 기본값 */}
-          <Route path="/fruit" element={<Navigate to="/fruit/1" replace />} />
-        </Routes>
+        <div className="app-wrap">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/Shopping" element={<Shoping />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/shopincart" element={<ShopingCart />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/fruit/:id" element={<FruitMarketDetail />} />
+            <Route path="/fruit" element={<Navigate to="/fruit/1" replace />} />
+          </Routes>
+        </div>
       </CartProvider>
     </AuthProvider>
   );
