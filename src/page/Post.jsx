@@ -17,15 +17,10 @@ function Post() {
 
   const { cartCount } = useCart();
   const { user, logout } = useAuth();
-  const navigate = useNavigate();;
+  const navigate = useNavigate();
 
-  const {
-  open,
-  closing,
-  dropdownRef,
-  toggleDropdown,
-  closeDropdown,
-} = useDropdown();
+  const { open, closing, dropdownRef, toggleDropdown, closeDropdown } =
+    useDropdown();
 
   const handleLogout = () => {
     closeDropdown();
@@ -38,7 +33,7 @@ function Post() {
       const { data, error } = await supabase
         .from("posts")
         .select("*")
-        .order("id", { ascending: false });
+        .order("created_at", { ascending: false });
 
       if (error) {
         console.error("게시글 조회 실패", error);
@@ -50,9 +45,19 @@ function Post() {
     fetchPosts();
   }, []);
 
-  const sortedPosts = [...posts].sort(
-    (a, b) => (b.is_pinned ?? 0) - (a.is_pinned ?? 0)
-  );
+  const handleDelete = (id) => {
+    setPosts((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const sortedPosts = [...posts].sort((a, b) => {
+    // 1️⃣ 고정글 우선
+    if ((b.is_pinned ?? 0) !== (a.is_pinned ?? 0)) {
+      return (b.is_pinned ?? 0) - (a.is_pinned ?? 0);
+    }
+
+    // 2️⃣ 최신 글 우선
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
 
   const handleSubmit = async () => {
     if (!title.trim() || !content.trim()) return;
@@ -65,6 +70,7 @@ function Post() {
     const { error } = await supabase.from("posts").insert({
       title,
       content,
+      author: user.user_metadata?.name || "사용자",
     });
 
     if (error) {
@@ -76,7 +82,7 @@ function Post() {
     const { data } = await supabase
       .from("posts")
       .select("*")
-      .order("id", { ascending: false });
+      .order("created_at", { ascending: false });
 
     setPosts(data);
     setTitle("");
@@ -197,15 +203,13 @@ function Post() {
                 selectedPost?.id === post.id ? "active" : ""
               }`}
               onClick={() =>
-                setSelectedPost(
-                  selectedPost?.id === post.id ? null : post
-                )
+                setSelectedPost(selectedPost?.id === post.id ? null : post)
               }
             >
               <h3>{post.title}</h3>
               <p>{post.content}</p>
               <div className="post-footer">
-                <span className="author">{post.author}</span>
+                {post.author && <span className="author">{post.author}</span>}
                 <span className="date">
                   {new Date(post.created_at).toLocaleString()}
                 </span>
@@ -218,14 +222,13 @@ function Post() {
           <PostDetail
             post={selectedPost}
             onClose={() => setSelectedPost(null)}
-            onDelete={(id) =>
-              setPosts(posts.filter((p) => p.id !== id))
-            }
+            onDelete={handleDelete}
             onUpdate={async () => {
               const { data } = await supabase
                 .from("posts")
                 .select("*")
-                .order("id", { ascending: false });
+                .order("created_at", { ascending: false });
+
               setPosts(data);
             }}
           />
