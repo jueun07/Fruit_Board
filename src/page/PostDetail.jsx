@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
+import "./Post.css";
 
 function PostDetail({ post, onClose, onDelete, onUpdate }) {
   const [comments, setComments] = useState([]);
@@ -33,7 +34,7 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
     const { error } = await supabase.from("comments").insert({
       post_id: post.id,
       content: comment,
-      author: "사용자", // 추후 로그인 사용자로 교체 가능
+      author: "사용자",
     });
 
     if (error) {
@@ -56,10 +57,7 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
   const deleteComment = async (id) => {
     if (!window.confirm("댓글을 삭제할까요?")) return;
 
-    const { error } = await supabase
-      .from("comments")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("comments").delete().eq("id", id);
 
     if (error) {
       alert("댓글 삭제 실패");
@@ -92,10 +90,7 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
   const deletePost = async () => {
     if (!window.confirm("게시글을 삭제할까요?")) return;
 
-    const { error } = await supabase
-      .from("posts")
-      .delete()
-      .eq("id", post.id);
+    const { error } = await supabase.from("posts").delete().eq("id", post.id);
 
     if (error) {
       alert("게시글 삭제 실패");
@@ -108,62 +103,69 @@ function PostDetail({ post, onClose, onDelete, onUpdate }) {
   };
 
   return (
-    <div className="post-detail">
-      <button className="back-btn" onClick={onClose}>
-        ← 목록
-      </button>
-
-      {isEdit ? (
-        <>
-          <input
-            value={editTitle}
-            onChange={(e) => setEditTitle(e.target.value)}
-          />
-          <textarea
-            value={editContent}
-            onChange={(e) => setEditContent(e.target.value)}
-          />
-          <div className="detail-actions">
-            <button onClick={saveEdit}>저장</button>
-            <button onClick={() => setIsEdit(false)}>취소</button>
-          </div>
-        </>
-      ) : (
-        <>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-
-          <div className="detail-actions">
-            <button onClick={() => setIsEdit(true)}>수정</button>
-            <button className="danger" onClick={deletePost}>
-              삭제
-            </button>
-          </div>
-        </>
-      )}
-
-      <hr />
-      <h4>댓글</h4>
-
-      <ul className="comment-list">
-        {comments.map((c) => (
-          <li key={c.id}>
-            {c.content}
-            <span> · {c.author}</span>
-            <button onClick={() => deleteComment(c.id)}>삭제</button>
-          </li>
-        ))}
-      </ul>
-
-      <div className="comment-form">
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="댓글을 입력하세요"
-        />
-        <button className="submit-btn" onClick={submitComment}>
-          등록
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="modal-content post-detail"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="modal-close" onClick={onClose}>
+          ✕
         </button>
+
+        {isEdit ? (
+          <>
+            <input
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+            />
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+            />
+            <div className="detail-actions">
+              <button onClick={saveEdit}>저장</button>
+              <button onClick={() => setIsEdit(false)}>취소</button>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2>{post.title}</h2>
+            <p>{post.content}</p>
+
+            <div className="detail-actions">
+              <button onClick={() => setIsEdit(true)}>수정</button>
+              <button className="danger" onClick={deletePost}>
+                삭제
+              </button>
+            </div>
+          </>
+        )}
+        <br></br>
+
+        <hr />
+        <br></br>
+        <h4>댓글</h4>
+
+        <ul className="comment-list">
+          {comments.map((c) => (
+            <li key={c.id}>
+              {c.content}
+              <span> · {c.author}</span>
+              <button onClick={() => deleteComment(c.id)}>삭제</button>
+            </li>
+          ))}
+        </ul>
+
+        <div className="comment-form">
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="댓글을 입력하세요"
+          />
+          <button className="submit-btn" onClick={submitComment}>
+            등록
+          </button>
+        </div>
       </div>
     </div>
   );

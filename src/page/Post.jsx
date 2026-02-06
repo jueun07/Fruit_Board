@@ -45,6 +45,11 @@ function Post() {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = selectedPost ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
+  }, [selectedPost]);
+
   const handleDelete = (id) => {
     setPosts((prev) => prev.filter((p) => p.id !== id));
   };
@@ -199,9 +204,8 @@ function Post() {
           {sortedPosts.map((post) => (
             <article
               key={post.id}
-              className={`post-card ${
-                selectedPost?.id === post.id ? "active" : ""
-              }`}
+              className={`post-card ${selectedPost?.id === post.id ? "active" : ""
+                }`}
               onClick={() =>
                 setSelectedPost(selectedPost?.id === post.id ? null : post)
               }
